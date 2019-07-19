@@ -9,15 +9,15 @@ const Drum = () => {
       {letters.map((letter, index) =>
         (index + 1) % 3 === 0 ? (
           <>
-            <div className="button" id={letter}>
+            <button className="drum-pad" id={letter}>
               {letter}
-            </div>
+            </button>
             <div className="break" />
           </>
         ) : (
-          <div className="button" id={letter}>
+          <button className="drum-pad" id={letter}>
             {letter}
-          </div>
+          </button>
         )
       )}
     </div>
