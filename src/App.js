@@ -41,14 +41,30 @@ const letters = [
 ];
 
 const Drum = () => {
+  const [displayedLetter, setDisplayedLetter] = React.useState("");
+
   const sound = e => {
     const av = e.target.querySelector("audio");
-    // console.log(e.target, e.target.querySelector("audio").getAttribute("id"));
+    setDisplayedLetter(av.id);
     av.play();
   };
 
+  const keySound = e => {
+    const upperCased = e.key.toUpperCase();
+    const elem = document.getElementById(upperCased);
+    if (elem === null) return;
+    elem.play();
+    setDisplayedLetter(upperCased);
+  };
+
+  // Add event listeners
+  React.useEffect(() => {
+    window.addEventListener("keydown", e => keySound(e));
+  }, []); // Empty array ensures effect is only run on mount and unmount
+
   return (
     <div id="display" className="container">
+      <p className="break">{displayedLetter}</p>
       {letters.map((letter, index) =>
         (index + 1) % 3 === 0 ? (
           <>
@@ -57,7 +73,6 @@ const Drum = () => {
               id={`cont-${letter["button"]}`}
               onClick={e => sound(e)}
             >
-              {console.log(letter)}
               <audio
                 className="clip"
                 id={letter["button"]}
